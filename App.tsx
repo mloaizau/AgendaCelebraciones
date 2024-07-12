@@ -3,6 +3,7 @@ import { Button, SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-n
 import firebase from './src/utils/firebase';
 import "firebase/compat/auth";
 import { Auth } from './src/components/Auth';
+import { ListBirthday } from './src/components/ListBirthday';
 
 const App = () => {
 
@@ -19,25 +20,12 @@ const App = () => {
     <>
       <StatusBar></StatusBar>
       <SafeAreaView style={styles.container}>
-        {user ? <Logout/> : <Auth/>}
+        {user ? <ListBirthday/> : <Auth/>}
       </SafeAreaView>
     </>
   );
 }
 
-const Logout = () => {
-
-  const logout = () => {
-    firebase.auth().signOut();
-  }
-
-  return(
-    <View>
-      <Text>Estas Logeado</Text>
-      <Button title='Cerrar Sesión' onPress={logout}></Button>
-    </View>
-  )
-}
 
 export default App;
 
