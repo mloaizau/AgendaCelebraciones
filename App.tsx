@@ -20,7 +20,7 @@ const App = () => {
     <>
       <StatusBar></StatusBar>
       <SafeAreaView style={styles.container}>
-        {user ? <ListBirthday/> : <Auth/>}
+        {user ? <ListBirthday user={user} /> : <Auth/>}
       </SafeAreaView>
     </>
   );

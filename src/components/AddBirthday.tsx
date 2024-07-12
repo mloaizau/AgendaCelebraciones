@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { NativeSyntheticEvent, StyleSheet, Text, TextInput, TextInputChangeEventData, TouchableOpacity, View } from 'react-native';
 import React, { useState } from 'react';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from 'moment';
@@ -10,8 +10,9 @@ import "firebase/compat/firestore";
 
 const db = firebase.firestore();
 
-export const AddBirthday = () => {
+export const AddBirthday = (props: any) => {
 
+    const {user, setShowList} = props;
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [formData, setFormData] = useState({});
     const [formError, setFormError] = useState({});
@@ -33,7 +34,7 @@ export const AddBirthday = () => {
         hideDatePicker();
     };
 
-    const onChange = (e, type) => {
+    const onChange = (e: NativeSyntheticEvent<TextInputChangeEventData>, type: string) => {
         setFormData({ ...formData, [type]: e.nativeEvent.text })
     }
 
@@ -46,10 +47,10 @@ export const AddBirthday = () => {
         } else {
             const data = formData;
             data.dateBirth.setYear(0);
-            db.collection("cumple")
+            db.collection(user.user.uid)
                 .add(data)
                 .then( () => {
-
+                    setShowList(true);
                 })
                 .catch( () => {
                     setFormError({Nombre: true, Apellidos: true, dateBirth: true})

@@ -3,7 +3,9 @@ import React, { useState } from 'react';
 import { ActionBar } from './ActionBar';
 import { AddBirthday } from './AddBirthday';
 
-export const ListBirthday = () => {
+export const ListBirthday = (props: any) => {
+
+    const user = props;
 
     const [showList, setShowList] = useState(true);
 
@@ -15,7 +17,7 @@ export const ListBirthday = () => {
                 </>
 
             ) : (
-                <AddBirthday/>
+                <AddBirthday user={user} setShowList={setShowList}/>
             )}
             <ActionBar showList={showList} setShowList={setShowList} />
         </View>
