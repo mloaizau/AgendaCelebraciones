@@ -12,7 +12,7 @@ const db = firebase.firestore();
 
 export const AddBirthday = (props: any) => {
 
-    const {user, setShowList} = props;
+    const {user, setShowList, setReloadData} = props;
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [formData, setFormData] = useState({});
     const [formError, setFormError] = useState({});
@@ -47,9 +47,10 @@ export const AddBirthday = (props: any) => {
         } else {
             const data = formData;
             data.dateBirth.setYear(0);
-            db.collection(user.user.uid)
+            db.collection(user.uid)
                 .add(data)
                 .then( () => {
+                    setReloadData(true);
                     setShowList(true);
                 })
                 .catch( () => {
